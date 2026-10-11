@@ -1,0 +1,15 @@
+Project Goal,"Creating a CPU using the RISC-V ISA, with a goal of running a Linux system and eventually run a 2simple 2D/3D game.",,,
+,,,,
+Specifications,,,,
+Requirement,Minimum,Recommended,Explanation,
+Logic Capacity (LUTs),"30,000 LUTs","50,000+ LUTs",The Linux-capable CPU core with an MMU uses ~15k LUTs. You also need space for the display controller and SDRAM/DDR3 controllers.,
+External RAM,64 MB,128 MB to 256 MB,"Linux takes roughly 24MB to 32MB just to sit at the terminal. Doom needs another 8MB of working memory, plus a dedicated frame buffer for the display.",
+RAM Type,SDRAM (16-bit wide),DDR3 or DDR4,A standard 8-bit SPI PSRAM chip is too slow. The CPU will stall trying to fetch Linux instructions and draw Doom frames simultaneously.,
+Storage,MicroSD Card Slot,MicroSD Card Slot,"To hold your Linux root filesystem, the compiled Linux kernel, and the DOOM.WAD game asset file.",
+,,,,
+Boards following specifications,,,,
+FPGA Board,Approximate Price,Logic Capacity (LUTs),Onboard Memory,Toolchain Options
+Sipeed Tang Primer 25K (Your starting baseline),~$18 – $65,"23,000 LUTs",64 Mb SDRAM (via PMOD),Gowin IDE (Closed)
+QMTECH Lattice ECP5-5G Board,~$55 – $70,"85,000 LUTs",32 MB to 128 MB DDR3,Fully Open-Source (yosys + nextpnr)
+Digilent Arty A7-35T,~$130 – $150,"33,280 LUTs",256 MB DDR3,AMD Vivado (Standard commercial)
+Digilent Arty A7-100T (Your premium baseline),~$250+,"101,440 LUTs",256 MB DDR3,AMD Vivado (Standard commercial)
