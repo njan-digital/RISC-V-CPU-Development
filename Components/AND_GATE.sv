@@ -1,5 +1,5 @@
 // A simple SystemVerilog example: a two-input AND gate.
-module and_gate (
+module AND_GATE (
 	input  logic a,
 	input  logic b,
 	output logic y
@@ -14,7 +14,7 @@ module testbench;
 	logic b;
 	logic y;
 
-	and_gate dut (
+	AND_GATE dut (
 		.a(a),
 		.b(b),
 		.y(y)

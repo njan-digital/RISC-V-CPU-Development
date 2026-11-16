@@ -1,0 +1,211 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}</style><style>:root{color-scheme:light dark;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}}:root[data-theme="dark"]{color-scheme:dark;--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}:root[data-theme="light"]{color-scheme:light}@media print{:root,:root[data-theme="dark"]{color-scheme:light;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}}body{background:var(--md-bg);color:var(--md-text);max-width:720px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:10px;font:14px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro','Segoe UI',sans-serif;overflow-wrap:break-word}body>:first-child{margin-top:0}h1,h2,h3,h4,h5,h6{margin:6px 0 0;line-height:1.25;font-weight:600;text-wrap:balance}h1{font-size:1.35em}h2{font-size:1.15em;color:var(--md-muted)}h3,h4,h5,h6{font-size:1em}p,ul,ol,blockquote,table,pre,hr{margin:0}strong{font-weight:600}a{color:var(--md-link);text-decoration:none}a:hover{text-decoration:underline}ul,ol{display:flex;flex-direction:column;gap:6px;padding-left:22px}ul{list-style:disc}ol{list-style:decimal}:is(li,td,th)>*+:is(p,ul,ol,blockquote){margin-top:6px}blockquote{display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--md-rule);padding-left:10px;color:var(--md-muted)}:not(pre)>code{background:var(--md-fill);padding:1px 3px;border-radius:4px;font:.92em 'SF Mono',ui-monospace,Menlo,Consolas,monospace}a>code{background:none;color:inherit}pre{background:var(--md-fill);padding:10px 12px;border-radius:6px;overflow-x:auto;font:12px/1.5 'SF Mono',ui-monospace,Menlo,Consolas,monospace;margin-block:4px}pre code{background:none;padding:0;font:inherit}table{width:100%;border-collapse:separate;border-spacing:2px;font:inherit}th,td{padding:6px 8px;border-radius:3px;text-align:left;vertical-align:top}th{background:var(--md-fill-strong);font-weight:600}td{background:var(--md-fill)}:is(th,td) :not(pre)>code{background:transparent}hr{border:0;border-top:1px solid var(--md-rule-strong);margin-block:10px}img{max-width:100%;height:auto;border-radius:4px}</style>
+</head><body>
+<h1>Build a RISC-V CPU: Your Course Flow</h1>
+<p>A self-paced curriculum from digital logic fundamentals through a taped-out (well, simulated tape-out) RISC-V core — with a physical design capstone, since that's where you're headed professionally. Budget roughly 4–6 months at a steady pace, less if you already have strong RTL chops.</p>
+<hr>
+<h2>Phase 0 — Prerequisites Check (1 week)</h2>
+<p>Before touching RTL, make sure these are solid:</p>
+<ul>
+<li><strong>Digital logic</strong>: combinational vs. sequential logic, FSMs, timing (setup/hold), pipelining basics</li>
+<li><strong>Computer architecture</strong>: instruction sets, datapath vs. control, memory hierarchy basics</li>
+<li><strong>A hardware description language</strong>: Verilog or SystemVerilog syntax (you don't need to be fluent yet, just literate)</li>
+</ul>
+<p><strong>Free resources:</strong></p>
+<ul>
+<li><em>Nand2Tetris</em> (nand2tetris.org) — builds a CPU from NAND gates up; great if logic design feels shaky</li>
+<li>Harris &amp; Harris, <em>Digital Design and Computer Architecture, RISC-V Edition</em> — the textbook most RISC-V courses use; check UT Austin's library for a legal digital copy</li>
+<li>UC Berkeley CS61C / CS152 lecture notes (free online) — architecture fundamentals</li>
+</ul>
+<p><strong>Milestone:</strong> You can read a Verilog always block and explain what hardware it describes.</p>
+<hr>
+<h2>Phase 1 — Learn the RISC-V ISA (1–2 weeks)</h2>
+<p>You need to know the instruction set cold before you implement it.</p>
+<ul>
+<li>Read the <strong>RISC-V Unprivileged ISA Specification</strong> (free PDF, riscv.org) — focus on RV32I (the base 32-bit integer instruction set). Skip privileged/extension chapters for now.</li>
+<li>Understand the instruction formats (R, I, S, B, U, J-type), the register file (x0–x31), and how immediates are encoded.</li>
+</ul>
+<p><strong>Free tools to play with instructions before building hardware:</strong></p>
+<ul>
+<li><strong>Ripes</strong> (github.com/mortbopet/Ripes) — a free, open-source RISC-V pipeline simulator with visual datapath diagrams. Write assembly, watch it execute cycle-by-cycle through single-cycle, 5-stage, or superscalar pipelines. This is the single best &quot;see it before you build it&quot; tool available.</li>
+<li><strong>Venus</strong> (venus.cs61c.org) — browser-based RISC-V simulator, zero install</li>
+<li><strong>RISC-V GNU Toolchain</strong> (github.com/riscv-collab/riscv-gnu-toolchain) — free cross-compiler so you can compile C to RISC-V assembly and study the output</li>
+</ul>
+<p><strong>Milestone:</strong> Hand-assemble a short RV32I program (10–15 instructions) into machine code without tool assistance.</p>
+<hr>
+<h2>Phase 2 — Single-Cycle CPU in RTL (2–3 weeks)</h2>
+<p>Build the simplest possible working core: one instruction fully executes per clock cycle.</p>
+<p><strong>Scope:</strong> RV32I, no pipelining, no hazards, no memory-mapped I/O yet. Datapath: PC, instruction memory, register file, ALU, data memory, control unit.</p>
+<p><strong>Free tools:</strong></p>
+<ul>
+<li><strong>Icarus Verilog (iverilog)</strong> — free, open-source Verilog simulator/compiler. Install via <code>apt install iverilog</code> or from GitHub. This is your day-to-day compile-and-run tool.</li>
+<li><strong>GTKWave</strong> — free waveform viewer, pairs with Icarus Verilog. You'll live in this tool debugging timing and control signals.</li>
+<li><strong>Visual Studio Code</strong> + a Verilog/SystemVerilog extension (free) for syntax highlighting and linting</li>
+</ul>
+<p><strong>Workflow:</strong> write module → <code>iverilog</code> compile → run testbench → dump <code>.vcd</code> → inspect in GTKWave → fix → repeat.</p>
+<p><strong>Milestone:</strong> Your core correctly executes a hand-written program exercising every RV32I instruction category (arithmetic, loads/stores, branches, jumps).</p>
+<hr>
+<h2>Phase 3 — Verification Discipline (1–2 weeks, but ongoing forever)</h2>
+<p>Before you pipeline anything, learn to verify properly — this habit pays off for the rest of the project (and your career).</p>
+<ul>
+<li>Write <strong>directed testbenches</strong> for each instruction</li>
+<li>Move to <strong>self-checking testbenches</strong> (compare against expected register/memory state automatically, not by eyeballing waveforms)</li>
+<li>Learn <strong>RISC-V's official compliance/architecture test suite</strong>: <code>riscv-software-src/riscv-tests</code> and <code>riscv-arch-test</code> (both free on GitHub) — run these against your core for real ISA compliance signal</li>
+</ul>
+<p><strong>Free tools:</strong></p>
+<ul>
+<li><strong>Verilator</strong> (veripool.org) — free, extremely fast Verilog/SystemVerilog simulator that compiles your design to C++. Industry-standard for open-source RTL verification; learning it now pays off later.</li>
+<li><strong>cocotb</strong> (free, Python-based testbench framework) — lets you write testbenches in Python instead of Verilog, much faster to iterate</li>
+</ul>
+<p><strong>Milestone:</strong> Your single-cycle core passes the official <code>rv32ui</code> (RV32 user integer) test suite.</p>
+<hr>
+<h2>Phase 4 — Pipelined CPU (3–5 weeks)</h2>
+<p>Convert your single-cycle design into a classic 5-stage pipeline (IF/ID/EX/MEM/WB) — this is where computer architecture really starts.</p>
+<ul>
+<li>Add pipeline registers between stages</li>
+<li>Implement <strong>hazard detection</strong>: data hazards (RAW), and resolve with <strong>forwarding/bypassing</strong> and stalling where forwarding can't help (e.g., load-use hazard)</li>
+<li>Implement <strong>control hazard</strong> handling: branch/jump misprediction, flushing</li>
+</ul>
+<p><strong>Free tools:</strong></p>
+<ul>
+<li>Keep using <strong>Verilator</strong> + <strong>cocotb</strong> — pipelines make bugs subtle, and a fast, scriptable simulator matters a lot here</li>
+<li><strong>Ripes</strong> again, side-by-side — it visualizes exactly this kind of hazard/forwarding logic, useful as a reference model when your own pipeline misbehaves</li>
+</ul>
+<p><strong>Milestone:</strong> Passes the full <code>rv32ui</code> suite with the pipeline active, and correctly handles a hand-crafted hazard-stress-test program (back-to-back dependent instructions, branches immediately followed by dependent instructions, etc).</p>
+<hr>
+<h2>Phase 5 — Memory System &amp; Peripherals (2–3 weeks)</h2>
+<p>Turn your core into something that can actually run a program from memory and talk to the outside world.</p>
+<ul>
+<li>Instruction/data memory as separate or unified (Harvard vs. von Neumann) BRAM-style models</li>
+<li>Simple <strong>memory-mapped I/O</strong> (e.g., a UART for printf-style debug output)</li>
+<li>Optional: a minimal <strong>AXI-Lite or Wishbone</strong> bus interface — teaches you the bus protocols real SoCs use</li>
+</ul>
+<p><strong>Free references:</strong></p>
+<ul>
+<li><strong>PicoRV32</strong> (github.com/YosysHQ/picorv32) — a small, well-documented, open-source RV32I core. Read its source once you have your own working; comparing designs teaches a lot.</li>
+<li><strong>SERV</strong> (github.com/olofk/serv) — the world's smallest RISC-V core (bit-serial); interesting for a completely different design philosophy</li>
+<li><strong>VexRiscv</strong> / <strong>Ibex</strong> (lowRISC) — more sophisticated free cores if you want to see production-quality style later</li>
+</ul>
+<p><strong>Milestone:</strong> Your core runs a compiled C &quot;Hello World&quot; that prints over a simulated UART.</p>
+<hr>
+<h2>Phase 6 — FPGA Bring-Up (2–3 weeks)</h2>
+<p>Get your design running on real silicon (an FPGA) instead of just simulation — a big motivational milestone.</p>
+<p><strong>Free/open toolchain (if you have or can access a Lattice iCE40 or ECP5 board):</strong></p>
+<ul>
+<li><strong>Yosys</strong> — free, open-source synthesis tool (Verilog → gate-level netlist)</li>
+<li><strong>nextpnr</strong> — free place-and-route tool</li>
+<li><strong>Project IceStorm / Project Trellis</strong> — free bitstream tools for Lattice iCE40/ECP5 FPGAs</li>
+<li>Together these form a <strong>fully open-source FPGA toolchain</strong> (no vendor license needed)</li>
+</ul>
+<p><strong>If you have access to Xilinx/Intel hardware instead</strong> (e.g., through UT Austin's ECE labs):</p>
+<ul>
+<li><strong>Xilinx Vivado</strong> (free WebPACK edition) or <strong>Intel Quartus Prime Lite</strong> (free edition) — proprietary but no-cost for smaller devices</li>
+</ul>
+<p><strong>Milestone:</strong> Your core runs on physical FPGA hardware, with UART output visible on a serial terminal on your laptop.</p>
+<hr>
+<h2>Phase 7 — Physical Design Capstone: RTL to GDSII (3–4 weeks)</h2>
+<p>This is the part that connects straight to your interest in ASIC physical design — take your verified RTL all the way to a manufacturable layout using a fully open-source flow.</p>
+<p><strong>Free tools (the open-source ASIC flow):</strong></p>
+<ul>
+<li><strong>Yosys</strong> — RTL synthesis (same tool as Phase 6)</li>
+<li><strong>OpenROAD</strong> — free, open-source place-and-route, floorplanning, clock tree synthesis (CTS), and static timing analysis engine</li>
+<li><strong>OpenLane / OpenLane 2</strong> — the automated flow that chains Yosys → OpenROAD → Magic → Netgen → KLayout into a single RTL-to-GDSII pipeline</li>
+<li><strong>SkyWater SKY130 PDK</strong> — free, open-source 130nm process design kit (the thing that makes all of this legally and technically possible without a foundry NDA)</li>
+<li><strong>Magic VLSI</strong> — free layout tool, used for DRC (design rule checking) and extraction</li>
+<li><strong>Netgen</strong> — free LVS (layout-vs-schematic) verification</li>
+<li><strong>KLayout</strong> — free GDSII viewer/editor, good for visually inspecting your final layout</li>
+<li><strong>OpenSTA</strong> — free static timing analysis (bundled with OpenROAD)</li>
+</ul>
+<p><strong>How to start without a painful local install:</strong> Google/ChipsAlliance publish a free Colab notebook that runs OpenLane in the browser with zero setup — good for your first end-to-end run before committing to a local Docker install.</p>
+<p><strong>Suggested capstone target:</strong> Don't try to push your full pipelined core through first. Start by hardening <strong>PicoRV32</strong> (a known-good, well-tested small core) through the full flow so you learn OpenLane's floorplan/placement/CTS/routing knobs without debugging your own RTL bugs at the same time. Then run your own core through it as the &quot;real&quot; capstone.</p>
+<p><strong>Milestone:</strong> A clean GDSII layout of your core with zero DRC violations, passing LVS, and timing closure at a target clock frequency — viewable in KLayout.</p>
+<hr>
+<h2>Ongoing: Reference Cores Worth Reading</h2>
+<p>Alongside your own build, periodically read the source of these free, open-source cores — seeing multiple design philosophies accelerates learning a lot:</p>
+<table>
+<thead>
+<tr>
+<th>Core</th>
+<th>Why read it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PicoRV32</td>
+<td>Small, clean, heavily used as a teaching/reference design</td>
+</tr>
+<tr>
+<td>SERV</td>
+<td>Radically minimal (bit-serial) — teaches what's actually essential</td>
+</tr>
+<tr>
+<td>Ibex (lowRISC)</td>
+<td>Production-quality style, used in real silicon (OpenTitan)</td>
+</tr>
+<tr>
+<td>VexRiscv</td>
+<td>Written in SpinalHDL — good exposure to HDL generators beyond Verilog</td>
+</tr>
+<tr>
+<td>Rocket Chip</td>
+<td>Full out-of-order-capable, Chisel-based — aspirational reading once you're comfortable</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Suggested Pace Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Focus</th>
+<th>Est. time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Prerequisites</td>
+<td>1 week</td>
+</tr>
+<tr>
+<td>1</td>
+<td>ISA literacy</td>
+<td>1–2 weeks</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Single-cycle core</td>
+<td>2–3 weeks</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Verification discipline</td>
+<td>1–2 weeks (ongoing)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Pipelining</td>
+<td>3–5 weeks</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Memory &amp; I/O</td>
+<td>2–3 weeks</td>
+</tr>
+<tr>
+<td>6</td>
+<td>FPGA bring-up</td>
+<td>2–3 weeks</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Physical design (RTL→GDSII)</td>
+<td>3–4 weeks</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total: roughly 15–23 weeks</strong> at a consistent few-hours-a-week pace, faster if you can dedicate more time (e.g., over a summer).</p>
+<hr>
+<p><em>Tell me when you finish a phase and want a checkpoint review, or if you want a deep dive into any single phase (e.g., a step-by-step OpenLane walkthrough, or how to write your first hazard-detection unit) — I can go much deeper on any of these.</em></p>
+
+</body></html>
